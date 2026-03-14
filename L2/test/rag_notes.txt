@@ -1,0 +1,3 @@
+Retrieval-augmented generation uses a retriever and a generator.
+The retriever finds relevant context chunks from indexed documents.
+The generator produces answers based on retrieved context and user question.

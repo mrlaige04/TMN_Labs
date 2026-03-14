@@ -1,0 +1,4 @@
+Transformers are neural network architectures designed for sequence modeling.
+They rely on self-attention mechanisms instead of recurrent operations.
+This allows parallel processing of tokens and better long-range dependencies.
+Transformer-based encoders are frequently used to generate text embeddings for retrieval tasks.

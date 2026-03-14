@@ -1,0 +1,3 @@
+Large language models are neural networks trained on huge text corpora.
+They can generate text, summarize documents, and answer questions.
+Model quality depends on architecture, data quality, and training objectives.

@@ -1,0 +1,4 @@
+Retrieval-augmented generation combines a retriever with a generative language model.
+The retriever finds relevant chunks in an indexed knowledge base.
+The generator then uses those chunks as context to improve factual grounding.
+Chunking quality and embedding quality directly affect retrieval quality.

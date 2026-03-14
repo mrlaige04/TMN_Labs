@@ -1,0 +1,4 @@
+Vector search represents data points as dense numerical vectors.
+Similarity between vectors is measured using distances such as cosine distance or Euclidean distance.
+Approximate nearest neighbor indexes can speed up search at large scale.
+For smaller datasets, exact search in PostgreSQL with pgvector is often sufficient.

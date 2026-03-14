@@ -1,0 +1,3 @@
+Vector databases store embeddings and support similarity search.
+Cosine distance is commonly used to compare normalized vectors.
+PostgreSQL with pgvector can be used for exact nearest neighbor search.

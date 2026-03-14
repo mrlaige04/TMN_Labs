@@ -1,0 +1,67 @@
+services:
+  postgres:
+    image: pgvector/pgvector:pg16
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: lab2_vector_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgvector_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d lab2_vector_db"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      DATABASE_URL: postgresql+psycopg://postgres:postgres@postgres:5432/lab2_vector_db
+      HF_HOME: /root/.cache/huggingface
+    ports:
+      - "8000:8000"
+    volumes:
+      - hf_cache_api:/root/.cache/huggingface
+
+  ollama:
+    image: ollama/ollama:latest
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama_data:/root/.ollama
+
+  llm_api:
+    build:
+      context: ./llm-api
+      dockerfile: Dockerfile
+    depends_on:
+      postgres:
+        condition: service_healthy
+      ollama:
+        condition: service_started
+    environment:
+      DATABASE_URL: postgresql+psycopg://postgres:postgres@postgres:5432/lab2_vector_db
+      OLLAMA_BASE_URL: http://ollama:11434
+      OLLAMA_MODEL_NAME: llama3.2:3b
+      EMBEDDING_MODEL_NAME: sentence-transformers/all-MiniLM-L6-v2
+      EMBEDDING_DIMENSION: 384
+      DEFAULT_TOP_K: 5
+      MAX_TOP_K: 20
+      HF_HOME: /root/.cache/huggingface
+    ports:
+      - "8001:8001"
+    volumes:
+      - hf_cache_llm_api:/root/.cache/huggingface
+
+volumes:
+  pgvector_data:
+  ollama_data:
+  hf_cache_api:
+  hf_cache_llm_api:

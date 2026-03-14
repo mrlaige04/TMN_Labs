@@ -1,0 +1,14 @@
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.venv/
+venv/
+.git/
+.idea/
+Lab 2.ipynb
+Lab 2.html
+test/
+llm-api/
+*.docx
+*.png
